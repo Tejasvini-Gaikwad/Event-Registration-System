@@ -1,0 +1,19 @@
+{
+    "users": [
+      {
+        "id" : 1,
+        "username": "tejasvini.gaikwad@joshsoftware.com",
+        "password": "tejasvini@96",
+        "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvYXV0cXVpYXV0LnBuZyIsImlhdCI6MTY3NjMxMTI0MywiZXhwIjoxNjc2MzE0ODQzfQ.tT_UGOVT0DLHMJMkqRadRB1um9hF-pi4oXkbwAHE7_E",
+        "type" : "admin"
+      },
+      {
+        "id" : 2,
+        "username": "divya@joshsoftware.com",
+        "password": "divya@94",
+        "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTUsInVzZXJuYW1lIjoia21pbmNoZWxsZSIsImVtYWlsIjoia21pbmNoZWxsZUBxcS5jb20iLCJmaXJzdE5hbWUiOiJKZWFubmUiLCJsYXN0TmFtZSI6IkhhbHZvcnNvbiIsImdlbmRlciI6ImZlbWFsZSIsImltYWdlIjoiaHR0cHM6Ly9yb2JvaGFzaC5vcmcvYXV0cXVpYXV0LnBuZyIsImlhdCI6MTY3NjMxMTI0MywiZXhwIjoxNjc2MzE0ODQzfQ.tT_UGOVT0DLHMJMkqRadRB1um9hF-pi4oXkbwAHE7_F",
+        "type" : "user"
+      }
+      
+    ]
+  }

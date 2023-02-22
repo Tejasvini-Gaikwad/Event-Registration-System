@@ -1,12 +1,38 @@
 .App {
   text-align: center;
 }
-
+body, html {
+  background-image: url("/public/background11.jpeg");
+  /* background-position: center; */
+  background-repeat: no-repeat;
+  background-size: cover;
+  
+}
+background-image {
+  opacity: 0.5;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
 
+.circle {
+  /* background-color: skyblue; */
+    border-radius: 75px;
+    padding: 7px;
+}
+
+.textCss{
+  text-align: center;
+}
+
+/* .cardCss{
+  box-shadow: 5px 10px #f0f5f5;
+} */
+
+.card-body{
+  padding: 35px;;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
