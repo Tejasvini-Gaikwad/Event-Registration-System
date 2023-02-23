@@ -14,7 +14,6 @@ const Login = () => {
     const navigate = useNavigate();
     // const result = useSelector((state) => state);
     const data = useSelector((state) => state);
-    const userData = data.LoginReducer;
     const [buttonClicked, setButtonClicked] = useState(false)
     const getUserInfo = JSON.parse(localStorage.getItem('user-info'));
     useEffect(()=>{

@@ -21,16 +21,16 @@ const CreateRole = () => {
         name:'',
     }
 
-    const data = useSelector((state) => state).RoleReducer;
+    const {data} = useSelector((state) => state.RoleReducer);
 
     const role = {};
     const onSubmit = (values,{ resetForm }) => {
         const res = {...role, role:values}
         dispatch(roleAction(res))
-        if(data.data.message){
+        if(data.message){
             swal({
                 title: 'Success',
-                text: data.data.message,
+                text: data.message,
                 icon: 'success',
                 showCancelButton: false,
               }).then((result) => {

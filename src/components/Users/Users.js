@@ -34,8 +34,8 @@ const Users = () => {
     useEffect(()=>{
         dispatch(usersAction())
     },[])
-    const users_data = useSelector((state) => state).UsersReducer;
-    const users = users_data.data;
+    const {data,isError,isLoading,msg} = useSelector((state) => state.UsersReducer);
+    const users = data;
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [deleteRecord, setDelete] = useState(false);
@@ -91,16 +91,16 @@ const Users = () => {
                         ))}
                         </TableRow>
                     </TableHead>
-                    {users_data.isLoading === true ? 
+                    {isLoading === true ? 
                         <TableBody>
                             <TableRow>
                                 <TableCell colSpan={7}><Spinner /></TableCell>    
                             </TableRow>
                         </TableBody> :
-                        users_data.isError === true ? 
+                        isError === true ? 
                         <TableBody>
                             <TableRow>
-                                <TableCell colSpan={7}>{users_data.msg}</TableCell>     
+                                <TableCell colSpan={7}>{msg}</TableCell>     
                             </TableRow>
                         </TableBody> :
                     <TableBody>

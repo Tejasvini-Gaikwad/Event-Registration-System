@@ -1,23 +1,19 @@
 import * as yup from 'yup'
 import Card from 'react-bootstrap/Card';
 import { ErrorMessage, Field, Form,Formik } from 'formik';
-import { Button, Dropdown } from "react-bootstrap";
-import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { useLocation, useNavigate } from "react-router-dom";
 import swal from 'sweetalert';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useState } from 'react';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import DatePicker from "react-datepicker";
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import "react-datepicker/dist/react-datepicker.css";
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { createEventAction, updateEventAction } from '../../actions/eventAction';
 import { useDispatch, useSelector } from 'react-redux';
 import BasicBreadcrumbs from '../../common/BasicBreadcrumbs';
@@ -28,7 +24,7 @@ const steps = ['Basic Info', 'Date Info', 'Tickit Info'];
 const CreateEvent = () => {
     const { state } = useLocation();
     const navigate = useNavigate("");
-    const data_res = useSelector((state) => state);
+    const {data,errors} = useSelector((state) => state.EventReducer);
     const dispatch = useDispatch();
     const [value, setValue] = useState('10:00');
     const [value2, setValue2] = useState('10:00');
@@ -59,8 +55,8 @@ const CreateEvent = () => {
         }
     }
     if(previousValues){
-        if(data_res.EventReducer.errors.length > 0 && checkButton === 'Update'){
-            const errorString = data_res.EventReducer.errors.reduce((acc,item)=>{
+        if(errors.length > 0 && checkButton === 'Update'){
+            const errorString = errors.reduce((acc,item)=>{
                 return acc+","+item
             })
             swal({
@@ -72,7 +68,7 @@ const CreateEvent = () => {
                     // navigate('/')
                 }
             })
-        }else if(checkButton === 'Update' && data_res.EventReducer.data.message && data_res.EventReducer.data.message === 'Event updated sucessfully'){
+        }else if(checkButton === 'Update' && data.data.message && data.data.message === 'Event updated sucessfully'){
             swal({
                 title: 'Success',
                 text: 'Event updated sucessfully',

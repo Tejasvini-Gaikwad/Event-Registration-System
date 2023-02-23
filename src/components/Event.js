@@ -32,9 +32,9 @@ const Event = () => {
     const getUserInfo = JSON.parse(localStorage.getItem('user-info'))
     const [buttonClicked, SetButtonClicked] = useState(false)
     const [events, setEvents] = useState([])
-    const events_data = useSelector((state) => state).EventReducer;
-    const isLoading = events_data.isLoading
+    const {data,isError,isLoading,msg} = useSelector((state) => state.EventReducer);
     const [getAll, setGetAll] = useState(true)
+    const [isDelete, setIsDelete] = useState(false)
     useEffect(()=>{ 
         if(getUserInfo.role_id && getUserInfo.role_id === 1){
             dispatch(userEventAction(getUserInfo.id))
@@ -43,11 +43,14 @@ const Event = () => {
                 dispatch(eventAction())
             }
         }
-        setEvents(events_data.data);
+        // if(!isDelete){
+            setEvents(data);
+        // }
+        
 
-    },[events,isLoading])
+    },[isLoading,isDelete])
 
-    
+
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const handleChangePage = (event, newPage) => {
@@ -60,13 +63,13 @@ const Event = () => {
     };
     
     if(buttonClicked === true){
-        if(events_data.data.length === 1){
-            navigate('/view-event', {state:events_data.data[0]})
+        if(data.length === 1){
+            navigate('/view-event', {state:data[0]})
         }
     }
     const viewEvent = (id) => {
         dispatch(viewEventAction(id))
-        if(events_data.isLoading === false && events_data.isError === false){
+        if(isLoading === false && isError=== false){
             SetButtonClicked(true)
         }
     }
@@ -83,9 +86,20 @@ const Event = () => {
           }).then((result) => {
             if (result===true) {
                 dispatch(DeleteEventAction(id));
+                setIsDelete(true);
                 swal("Deleted!", "Record has been deleted.", "success").then((res)=>{
                     if (res===true) {
-                        window.location.reload()   
+                        if(getUserInfo.role_id && getUserInfo.role_id === 1){
+                            dispatch(userEventAction(getUserInfo.id))
+                            setIsDelete(false)
+                        }else{
+                            // if(getAll === true){
+                                dispatch(eventAction())
+                                setIsDelete(false)
+                            // }
+                        }
+                        setEvents(data);
+                        navigate('/event')
                     }
                 })
                 
@@ -94,7 +108,7 @@ const Event = () => {
     }
 
     const updateEvent = (id) => {
-        const res = events_data.data.find((item) => item.id === id);
+        const res = data.find((item) => item.id === id);
         let start_time = new Date(res.start_time).getUTCHours()+':'+new Date(res.start_time).getUTCMinutes()
         let end_time = new Date(res.end_time).getUTCHours()+':'+new Date(res.end_time).getUTCMinutes()
         const result_data = {...res, start_date: new Date(res.start_date), end_date:new Date(res.end_date), start_time:start_time, end_time : end_time}
@@ -110,7 +124,7 @@ const Event = () => {
                     events.filter((item) => item.name.includes(val))
                 }
                 dispatch(searchByName({'id':getUserInfo.id, 'name':val}));
-                setEvents(events_data.data)
+                setEvents(data)
                 if(val.length > 0){
                     setGetAll(false)
                 }else{
@@ -119,7 +133,7 @@ const Event = () => {
                 break;
             case 'venue' :
                 dispatch(searchByVenue({'id':getUserInfo.id, 'name':val}));
-                setEvents(events_data.data)
+                setEvents(data)
                 if(val.length > 0){
                     setGetAll(false)
                 }else{
@@ -129,7 +143,7 @@ const Event = () => {
 
             case 'entry_fees' :
                 dispatch(searchByEntryFees({'id':getUserInfo.id, 'name':val}));
-                setEvents(events_data.data)
+                setEvents(data)
                 if(val.length > 0){
                     setGetAll(false)
                 }else{
@@ -179,10 +193,10 @@ const Event = () => {
                                 <TableCell colSpan={7}><Spinner /></TableCell>    
                             </TableRow>
                         </TableBody> :
-                        events_data.isError === true ? 
+                        isError === true ? 
                         <TableBody>
                             <TableRow>
-                                <TableCell colSpan={7}>{events_data.msg}</TableCell>     
+                                <TableCell colSpan={7}>{msg}</TableCell>     
                             </TableRow>
                         </TableBody> :
                     <TableBody>

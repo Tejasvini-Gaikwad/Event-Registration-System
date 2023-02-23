@@ -8,12 +8,11 @@ const WithLayout = (
   includeSidebar
 ) => {
   return (
-    <Row>
-      <Col sm={1}>{includeSidebar && <SidebarLayout />}</Col>
-      <Col sm={12}>
+    <>
+      <div>{includeSidebar && <SidebarLayout />}</div>
+      <div>
         {wrappedComponent}
-      </Col>
-    </Row>
+      </div></>
   );
 };
 

@@ -15,7 +15,8 @@ const Register = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate("");
     const previousValues = useLocation().state;
-    const state_res = useSelector((state) => state).LoginReducer;
+    const {data,email,errors,isError,isLogin,msg,token,type} = useSelector((state) => state.LoginReducer);
+    console.log(data)
     const initialValues = {
         role_id:'',
         first_name:'',
@@ -26,8 +27,8 @@ const Register = () => {
         confirmPassword:''
     }
 
-    if(state_res.errors.length){
-        const errorString = state_res.errors.reduce((acc,item)=>{
+    if(errors.length){
+        const errorString = errors.reduce((acc,item)=>{
             return acc+","+item
         })
         swal({
@@ -51,7 +52,7 @@ const Register = () => {
         }else{
             const res = {...user, user:values}
             dispatch(registerAction(res))
-            if(state_res.errors.length === 0){
+            if(errors.length === 0){
             swal({
                 title: 'Success',
                 text: "Your registration is successful!",

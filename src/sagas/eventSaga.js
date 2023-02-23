@@ -27,6 +27,7 @@ import { deleteApi, getApi, postApi, putApi } from "../Api/ApiHelper";
         }).catch((err)=>{
             return {...err,success:false};
         });
+        console.log(result,'result 1')
         return result
     }
 

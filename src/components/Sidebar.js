@@ -114,7 +114,7 @@ export default function Sidebar() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const dataRes = useSelector((state) => state).LoginReducer;
+  const dataRes = useSelector((state) => state.LoginReducer);
   const loginUserInfo = JSON.parse(localStorage.getItem('user-info'))
   const [checkClicked, setCheckClicked] = React.useState(false)
   

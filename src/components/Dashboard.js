@@ -10,7 +10,7 @@ import '../App.css'
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-    const count_data = useSelector((state) => state).LoginReducer.data;
+    const {data} = useSelector((state) => state.LoginReducer);
     useEffect(() => {
         dispatch(getCounts());
     },[])
@@ -25,7 +25,7 @@ const Dashboard = () => {
                     <Card className='cardCss'>
                         <Card.Body>
                             Registants <br />
-                                <span className="circle" style={{"backgroundColor":"#66e0ff"}}>{count_data.registants}</span>
+                                <span className="circle" style={{"backgroundColor":"#66e0ff"}}>{data.registants}</span>
                         </Card.Body>
                         <Card.Footer style={{backgroundColor:'#66e0ff' }}></Card.Footer>
                     </Card>
@@ -34,7 +34,7 @@ const Dashboard = () => {
                     <Card>
                         <Card.Body>
                             Organizers <br />
-                            <span className="circle" style={{"backgroundColor":"#cc33ff"}}>{count_data.registants}</span>
+                            <span className="circle" style={{"backgroundColor":"#cc33ff"}}>{data.registants}</span>
                         </Card.Body>
                         <Card.Footer style={{backgroundColor:'#cc33ff' }}></Card.Footer>
                     </Card>
@@ -43,7 +43,7 @@ const Dashboard = () => {
                     <Card>
                         <Card.Body>
                             Registered Users <br />
-                                <span className="circle" style={{"backgroundColor":"#ff6666"}}>{count_data.registered_users}</span>
+                                <span className="circle" style={{"backgroundColor":"#ff6666"}}>{data.registered_users}</span>
                         </Card.Body>
                         <Card.Footer style={{backgroundColor:'#ff6666' }}></Card.Footer>
                     </Card>
@@ -52,7 +52,7 @@ const Dashboard = () => {
                     <Card>
                         <Card.Body>
                             Events <br />
-                                <span className="circle" style={{"backgroundColor":"#ffccff"}}>{count_data.events}</span>
+                                <span className="circle" style={{"backgroundColor":"#ffccff"}}>{data.events}</span>
                         </Card.Body>
                         <Card.Footer style={{backgroundColor:'#ffccff' }}></Card.Footer>
                     </Card>
