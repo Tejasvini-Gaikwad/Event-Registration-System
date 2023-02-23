@@ -1,17 +1,10 @@
 import { GET_ROLES ,URL_API, GET_ROLES_SUCCESS} from "../constants";
 import axios from "axios";
 import {call, takeEvery, put} from 'redux-saga/effects';
-
-const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem('token')
-}
+import { postApi,getApi } from "../Api/ApiHelper";
 
 function* getRolesApi(){
-    const result = yield axios.get(`${URL_API}api/v1/roles`,
-    {
-        headers: headers
-    }).
+    const result = yield getApi(`api/v1/roles`).
     then((res)=>{
         return {...res, success:true}
     }).catch((err)=>{
@@ -25,10 +18,7 @@ function* getRoles(){
 }
 
 function* createRoleApi(action){
-    const result = yield axios.post(`${URL_API}api/v1/roles`,action.data,
-    {
-        headers: headers
-    }).
+    const result = yield postApi(`api/v1/roles`,action.data).
     then((res)=>{
         return {...res, success:true}
     }).catch((err)=>{

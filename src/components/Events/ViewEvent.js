@@ -163,8 +163,8 @@ const ViewEvent = () => {
                                     Entry Fees : {state.entry_fees}
                                 </Col>
                                 <Col xs={6}>
-                                    
-                                    {state.status===open ? <Button variant='primary' onClick={handleOpen}>Register</Button> : ""}
+                                    {console.log(state,'state')}
+                                    {state.status==='open' ? <Button variant='primary' onClick={handleOpen}>Register</Button> : ""}
                                 
                                     <Modal
                                         aria-labelledby="transition-modal-title"

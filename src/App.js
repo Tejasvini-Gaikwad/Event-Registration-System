@@ -17,12 +17,14 @@ import Role from './components/Role/Role';
 import CreateRole from './components/Role/CreateRole';
 import ViewEvent from './components/Events/ViewEvent';
 import RegisterEvents from './components/Events/RegisterEvents.js';
+import RoutesComponent from './root/Routes';
 
 function App() {
   return (
     <Provider store={store}>
       <div className="App">
-        <BrowserRouter>
+        <RoutesComponent />
+        {/* <BrowserRouter>
           <Routes>
             
             <Route path="/" element={<Login />}/>
@@ -41,7 +43,7 @@ function App() {
 
             </Route>
           </Routes>
-        </BrowserRouter>
+        </BrowserRouter> */}
       </div>
     </Provider>
   );

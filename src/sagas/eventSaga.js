@@ -1,22 +1,12 @@
 import { CREATE_EVENT, DELETE_EVENT, DELETE_EVENT_SUCCESS, DELETE_REGISTRATION, DELETE_REGISTRATION_SUCCESS, GET_EVENTS,GET_EVENTS_SUCCESS,GET_USER_EVENTS,GET_USER_EVENTS_SUCCESS,REGISTERED_EVENTS,REGISTERED_EVENTS_SUCCESS,REGISTER_EVENT,REGISTER_EVENT_SUCCESS,SEARCH_BY_ENTRY_FEES,SEARCH_BY_ENTRY_FEES_SUCCESS,SEARCH_BY_NAME,SEARCH_BY_NAME_SUCCESS,SEARCH_BY_VENUE,SEARCH_BY_VENUE_SUCCESS,UPDATE_EVENT,UPDATE_EVENT_SUCCESS,UPDATE_TICKET,UPDATE_TICKET_SUCCESS,URL_API, USER_REGISTERED_EVENTS, VIEW_EVENT, VIEW_EVENT_SUCCESS } from "../constants";
 import axios from 'axios';
 import {call, takeEvery, put} from 'redux-saga/effects';
-
-
-const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem('token')
-  }
-
-  console.log( 'ertyui',localStorage.getItem('token'));
+import { deleteApi, getApi, postApi, putApi } from "../Api/ApiHelper";
 
   const user_id = JSON.parse(localStorage.getItem('user-info')).id
 
   function* getEventsApi(){
-    const result = yield axios.get(`${URL_API}api/v1/events`,
-        {
-            headers: headers
-        }).
+    const result = yield getApi(`api/v1/events`).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -31,10 +21,7 @@ const headers = {
     }
 
     function* getUserEventsApi(action){
-        const result = yield axios.get(`${URL_API}api/v1/users/${action.data}/events`,
-        {
-            headers: headers
-        }).
+        const result = yield getApi(`api/v1/users/${action.data}/events`).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -49,10 +36,7 @@ const headers = {
     }
 
     function* viewEventsApi(action){
-        const result = yield axios.get(`${URL_API}api/v1/events/${action.data}`,
-        {
-            headers: headers
-        }).
+        const result = yield getApi(`api/v1/events/${action.data}`).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -66,10 +50,7 @@ const headers = {
     }
 
     function* createEventApi(action){
-        const result = yield axios.post(`${URL_API}api/v1/users/${user_id}/events`,action.data,
-        {
-            headers: headers
-        }).
+        const result = yield postApi(`api/v1/users/${user_id}/events`,action.data).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -83,10 +64,7 @@ const headers = {
     }
 
     function* deleteEventApi(action){
-        const result = yield axios.delete(`${URL_API}api/v1/events/${action.data}`,
-        {
-            headers: headers
-        }).
+        const result = yield deleteApi(`api/v1/events/${action.data}`).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -100,10 +78,7 @@ const headers = {
     }
 
     function* updateEventApi(action){
-        const result = yield axios.put(`${URL_API}api/v1/events/${action.data.id}`,action.data,
-        {
-            headers: headers
-        }).
+        const result = yield putApi(`api/v1/events/${action.data.id}`,action.data).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -117,10 +92,7 @@ const headers = {
     }
 
     function* registerEventApi(action){
-        const result = yield axios.post(`${URL_API}api/v1/user_events`,action.data,
-        {
-            headers: headers
-        }).
+        const result = yield postApi(`api/v1/user_events`,action.data).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -134,10 +106,7 @@ const headers = {
     }
 
     function* getRegisteredEventsApi(){
-        const result = yield axios.get(`${URL_API}api/v1/user_events`,
-        {
-            headers: headers
-        }).
+        const result = yield getApi(`api/v1/user_events`).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -151,10 +120,7 @@ const headers = {
     }
 
     function* getRegisteredEventsByUserApi(action){
-        const result = yield axios.get(`${URL_API}api/v1/user_events/get_registered_events?id=${action.data}`,
-        {
-            headers: headers
-        }).
+        const result = yield getApi(`api/v1/user_events/get_registered_events?id=${action.data}`).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -168,10 +134,7 @@ const headers = {
     }
 
     function* deleteRegistrationApi(action){
-        const result = yield axios.delete(`${URL_API}api/v1/user_events/${action.data}`,
-        {
-            headers: headers
-        }).
+        const result = yield deleteApi(`api/v1/user_events/${action.data}`).
         then((res)=>{
             return {...res, success:true}
         }).catch((err)=>{
@@ -185,10 +148,7 @@ const headers = {
     }
 
     function* updateTicketApi(action){
-        const result = yield axios.put(`${URL_API}api/v1/user_events/${action.data.user_event.id}`,action.data.user_event,
-        {
-            headers: headers
-        }).
+        const result = yield putApi(`api/v1/user_events/${action.data.user_event.id}`,action.data.user_event).
         then((res)=>{
 
             return {...res, success:true}
@@ -203,10 +163,7 @@ const headers = {
     }
 
     function* searchByNameApi(action){
-        const result = yield axios.get(`${URL_API}api/v1/users/${action.data.id}/events/search_event?name=${action.data.name}`,
-            {
-                headers: headers
-            }).
+        const result = yield getApi(`api/v1/users/${action.data.id}/events/search_event?name=${action.data.name}`).
             then((res)=>{
                 return {...res, success:true}
             }).catch((err)=>{
@@ -221,11 +178,8 @@ const headers = {
     }
 
     function* searchByVenueApi(action){
-        const result = yield axios.get(`${URL_API}api/v1/users/${action.data.id}/events/search_event?venue
-        =${action.data.name}`,
-            {
-                headers: headers
-            }).
+        const result = yield getApi(`api/v1/users/${action.data.id}/events/search_event?venue
+        =${action.data.name}`).
             then((res)=>{
                 return {...res, success:true}
             }).catch((err)=>{
@@ -240,10 +194,7 @@ const headers = {
     }
 
     function* searchByEntreeFeesApi(action){
-        const result = yield axios.get(`${URL_API}api/v1/users/${action.data.id}/events/search_event?entry_fees=${action.data.name}`,
-            {
-                headers: headers
-            }).
+        const result = yield getApi(`api/v1/users/${action.data.id}/events/search_event?entry_fees=${action.data.name}`).
             then((res)=>{
                 return {...res, success:true}
             }).catch((err)=>{

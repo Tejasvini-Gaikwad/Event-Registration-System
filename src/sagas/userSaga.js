@@ -1,18 +1,10 @@
 import { DELETE_USER, DELETE_USER_SUCCESS, GET_USERS,GET_USERS_SUCCESS,UPDATE_USER,UPDATE_USER_SUCCESS,URL_API } from "../constants";
 import axios from 'axios';
 import {call, takeEvery, put} from 'redux-saga/effects';
-
-const headers = {
-    'Content-Type': 'application/json',
-    'Authorization': localStorage.getItem('token')
-}
+import { deleteApi, getApi, putApi } from "../Api/ApiHelper";
 
 function* getUsersApi(){
-    
-    const result = yield axios.get(`${URL_API}api/v1/users`,
-    {
-        headers: headers
-    }).
+    const result = yield getApi(`api/v1/users`).
     then((res)=>{
         return {...res, success:true}
     }).catch((err)=>{
@@ -26,10 +18,7 @@ function* getUsers(){
 }
 
 function* deleteUserApi(action){
-    const result = yield axios.get(`${URL_API}api/v1/users/${action.data}`,
-    {
-        headers: headers
-    }).
+    const result = yield deleteApi(`api/v1/users/${action.data}`).
     then((res)=>{
         return {...res, success:true}
     }).catch((err)=>{
@@ -44,10 +33,7 @@ function* deleteUser(action){
 
 function* updateUserApi(action){
     
-    const result = yield axios.put(`${URL_API}api/v1/users/${action.data.id}`,action.data,
-    {
-        headers : headers
-    }).
+    const result = yield putApi(`api/v1/users/${action.data.id}`,action.data).
     then((res)=>{
         return {...res, success:true}
     }).catch((err)=>{

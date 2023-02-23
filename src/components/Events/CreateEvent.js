@@ -297,7 +297,7 @@ const CreateEvent = () => {
 
     return (
         <>
-        <Box height={70} />
+        <Box height={20} />
         <BasicBreadcrumbs data={breadcrum}/>
         <div className="card col-6 offset-3 register" style={{"width": "50%"}}>
         <Card className='card'>
